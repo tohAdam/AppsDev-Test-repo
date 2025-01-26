@@ -1,0 +1,15 @@
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/bin/Debug/net9.0/Activity1
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/bin/Debug/net9.0/Activity1.deps.json
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/bin/Debug/net9.0/Activity1.runtimeconfig.json
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/bin/Debug/net9.0/Activity1.dll
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/bin/Debug/net9.0/Activity1.pdb
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/obj/Debug/net9.0/Activity1.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/obj/Debug/net9.0/Activity1.AssemblyInfoInputs.cache
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/obj/Debug/net9.0/Activity1.AssemblyInfo.cs
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/obj/Debug/net9.0/Activity1.csproj.CoreCompileInputs.cache
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/obj/Debug/net9.0/Activity1.sourcelink.json
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/obj/Debug/net9.0/Activity1.dll
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/obj/Debug/net9.0/refint/Activity1.dll
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/obj/Debug/net9.0/Activity1.pdb
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/obj/Debug/net9.0/Activity1.genruntimeconfig.cache
+/Users/jcatillo/AppsDev-Test-repo/Atillo/Activity1/obj/Debug/net9.0/ref/Activity1.dll
