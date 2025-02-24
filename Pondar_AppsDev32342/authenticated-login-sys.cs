@@ -18,6 +18,7 @@ class Program
 {
     static HashSet<UserData> registeredUsers = new HashSet<UserData>() // Stores users
         {
+        //test cases
         new UserData { firstName = "John", lastName = "Doe", middleName = "A", contactNumber = "1234567890", email = "john.doe@email.com", userName = "johndoe", password = "pass123", role = "user" },
         new UserData { firstName = "Jane", lastName = "Smith", middleName = "B", contactNumber = "0987654321", email = "jane.smith@email.com", userName = "janesmith", password = "pass123", role = "admin" },
         new UserData { firstName = "Mike", lastName = "Brown", middleName = "C", contactNumber = "1112223333", email = "mike.brown@email.com", userName = "mikebrown", password = "pass123", role = "user" },
