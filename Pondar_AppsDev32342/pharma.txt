@@ -1,0 +1,66 @@
+public partial class PharmacyPageViewModel : ObservableObject
+{
+    [ObservableProperty]
+    private ObservableCollection<Medicine> _medicines = new();
+
+    [ObservableProperty]
+    private decimal _totalCartPrice;
+
+    [ObservableProperty]
+    private ICommand _searchCommand;
+
+    [ObservableProperty]
+    private ICommand _goBackCommand;
+
+    [ObservableProperty]
+    private ICommand _viewCartCommand;
+
+    // Initialize these commands in constructor
+    public PharmacyPageViewModel()
+    {
+        SearchCommand = new RelayCommand(Search);
+        GoBackCommand = new RelayCommand(GoBack);
+        ViewCartCommand = new RelayCommand(ViewCart);
+        
+        // Load sample data
+        Medicines.Add(new Medicine { 
+            MedicineId = "M001", 
+            MedicineName = "Paracetamol", 
+            PricePerUnit = 5.99m, 
+            Stock = 100,
+            Items = 0
+        });
+    }
+
+    private void Search() { // Implement search logic
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                // Reset to all medicines if search is empty
+                LoadMedicines();
+            }
+            else
+            {
+                // Filter medicines based on search text
+                var filtered = Medicines.Where(m => 
+                    m.MedicineName.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                    m.MedicineId.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+                
+                Medicines.Clear();
+                foreach (var medicine in filtered)
+                {
+                    Medicines.Add(medicine);
+                }
+            }
+ }
+    private void GoBack() { // Implement navigation back logic
+            // Example: NavigationService.GoBack();
+            Console.WriteLine("Going back to previous page");
+}// Filter only medicines that have been added to cart
+            var cartItems = Medicines.Where(m => m.Items > 0).ToList();
+            
+            // Implement cart viewing logic
+            // For example: Navigation to cart page or show dialog
+            Console.WriteLine($"Viewing cart with {cartItems.Count} items");
+ /* implementation */ }
+}
