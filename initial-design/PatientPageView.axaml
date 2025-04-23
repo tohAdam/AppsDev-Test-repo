@@ -1,0 +1,142 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="HospitalApp.Views.PatientPageView">
+    <Grid RowDefinitions="Auto,*">
+        <!-- Header with Title and Add Patient Button -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" Spacing="10">
+            <TextBlock Text="Patients Management" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+            <Button Name="AddPatientButton" Content="Add New Patient" Command="{Binding AddPatientCommand}"/>
+            <TextBox Name="SearchBox" Width="200" Watermark="Search patients..." Text="{Binding SearchText}"/>
+        </StackPanel>
+        
+        <!-- Main Content Area with Tabs -->
+        <TabControl Grid.Row="1">
+            <!-- Patient List Tab -->
+            <TabItem Header="Patient List">
+                <Grid RowDefinitions="*,Auto">
+                    <!-- Patient DataGrid -->
+                    <DataGrid Grid.Row="0" Name="PatientsGrid" 
+                              Items="{Binding Patients}"
+                              SelectedItem="{Binding SelectedPatient}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth, StringFormat=\{0:MM/dd/yyyy\}}"/>
+                            <DataGridTextColumn Header="Gender" Binding="{Binding Gender}"/>
+                            <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+                            <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
+                            <DataGridTemplateColumn Header="Actions">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <Button Content="Edit" Command="{Binding $parent[DataGrid].DataContext.EditPatientCommand}" 
+                                                    CommandParameter="{Binding}"/>
+                                            <Button Content="Delete" Command="{Binding $parent[DataGrid].DataContext.DeletePatientCommand}" 
+                                                    CommandParameter="{Binding}"/>
+                                            <Button Content="Medical Records" Command="{Binding $parent[DataGrid].DataContext.ViewMedicalRecordsCommand}" 
+                                                    CommandParameter="{Binding}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                    <!-- Pagination Controls -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Spacing="5">
+                        <Button Content="Previous" Command="{Binding PreviousPageCommand}"/>
+                        <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center"/>
+                        <TextBlock Text="of" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding TotalPages}" VerticalAlignment="Center"/>
+                        <Button Content="Next" Command="{Binding NextPageCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            
+            <!-- Add/Edit Patient Form Tab -->
+            <TabItem Header="Patient Details" IsVisible="{Binding IsEditMode}">
+                <ScrollViewer>
+                    <StackPanel Margin="20" Spacing="15">
+                        <TextBlock Text="{Binding FormTitle}" FontSize="18" FontWeight="Bold"/>
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Name:"/>
+                            <TextBox Text="{Binding CurrentPatient.Name}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Date of Birth:"/>
+                            <DatePicker SelectedDate="{Binding CurrentPatient.DateOfBirth}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Gender:"/>
+                            <ComboBox SelectedItem="{Binding CurrentPatient.Gender}" Items="{Binding GenderOptions}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Phone:"/>
+                            <TextBox Text="{Binding CurrentPatient.Phone}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Address:"/>
+                            <TextBox Text="{Binding CurrentPatient.Address}" AcceptsReturn="True" TextWrapping="Wrap" Height="60"/>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Emergency Contact:"/>
+                            <TextBox Text="{Binding CurrentPatient.EmergencyContact}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Insurance Details:"/>
+                            <TextBox Text="{Binding CurrentPatient.InsuranceDetails}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,20,0,0">
+                            <Button Content="Save" Command="{Binding SavePatientCommand}"/>
+                            <Button Content="Cancel" Command="{Binding CancelEditCommand}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <!-- Medical Records Tab (appears when a patient is selected) -->
+            <TabItem Header="Medical Records" IsVisible="{Binding IsMedicalRecordsVisible}">
+                <Grid RowDefinitions="Auto,*">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" Spacing="10">
+                        <TextBlock Text="{Binding SelectedPatient.Name, StringFormat=Medical Records for \{0\}}" FontSize="16" FontWeight="Bold"/>
+                        <Button Content="Add Record" Command="{Binding AddMedicalRecordCommand}"/>
+                    </StackPanel>
+                    
+                    <DataGrid Grid.Row="1" Items="{Binding MedicalRecords}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=\{0:MM/dd/yyyy\}}"/>
+                            <DataGridTextColumn Header="Doctor" Binding="{Binding DoctorName}"/>
+                            <DataGridTextColumn Header="Diagnosis" Binding="{Binding Diagnosis}"/>
+                            <DataGridTextColumn Header="Prescription" Binding="{Binding Prescription}"/>
+                            <DataGridTemplateColumn Header="Actions">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <Button Content="Edit" Command="{Binding $parent[DataGrid].DataContext.EditMedicalRecordCommand}" 
+                                                    CommandParameter="{Binding}"/>
+                                            <Button Content="Delete" Command="{Binding $parent[DataGrid].DataContext.DeleteMedicalRecordCommand}" 
+                                                    CommandParameter="{Binding}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
